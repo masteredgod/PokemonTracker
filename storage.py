@@ -23,6 +23,6 @@ def save_sprite(pokedex):
         if pokemon["sprite"] == "None" or pokemon["sprite"] is None:
             continue
         response = requests.get(pokemon["sprite"])
-        with open(f"pokemon_sprites/{pokemon["Dex_number"]}.gif", "wb")as f:
+        with open(f"pokemon_sprites/{pokemon["Dex_number"]}.png", "wb")as f:
             f.write(response.content)
 

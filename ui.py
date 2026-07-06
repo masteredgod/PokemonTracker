@@ -23,9 +23,9 @@ class App(customtkinter.CTk):
             print(f"Processing {pokemon['Name']}")
             card = customtkinter.CTkFrame(self.scroll_frame)
             card.grid(row=i//6, column=i%6, padx=10, pady=10)
-            if os.path.exists(f"pokemon_sprites/{pokemon["Dex_number"]}.gif"):
-                image = Image.open(f"pokemon_sprites/{pokemon["Dex_number"]}.gif").convert("RGBA")
-                ctk_image = customtkinter.CTkImage(image)
+            if os.path.exists(f"pokemon_sprites/{pokemon["Dex_number"]}.png"):
+                image = Image.open(f"pokemon_sprites/{pokemon["Dex_number"]}.png").convert("RGBA")
+                ctk_image = customtkinter.CTkImage(image, size=(100,100))
                 Image_label =customtkinter.CTkLabel(card, image=ctk_image, text="")
                 Image_label.grid(row=0, column=0, padx=90, pady=50)
 

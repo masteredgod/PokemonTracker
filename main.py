@@ -18,9 +18,8 @@ if pokedex =={}:
         print(f"Fetched {Pokemon['Name']} - {Pokemon["Dex_number"]}")
     save_pokemon(pokedex)
     print("About to save sprites")
-
-
-
+    save_sprite(pokedex)
+    
 
 
 ## Pokemon-Search function

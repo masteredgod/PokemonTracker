@@ -16,7 +16,7 @@ def get_pokemon(name):
                   "Owned": False,
                   "Shiny": False,
                   "stored": "",
-                  "sprite": response.json()["sprites"]["other"]["showdown"]["front_default"]
+                  "sprite": response.json()["sprites"]["other"]["home"]["front_default"]
                   }
         except:
              return None
