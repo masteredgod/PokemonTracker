@@ -3,6 +3,21 @@ from games import Games
 from pokemon import Pokemon
 from api import  get_pokemon
 from storage import save_pokemon, load_pokemon,save_sprite
+from rich.table import Table
+from rich import print
+from typingcolor import Type_colors
+
+table = Table(title="Pokémon")
+table.add_column("Dex", style="cyan")
+table.add_column("Name", style="white")
+table.add_column("Type", style="green")
+table.add_column("Ownership", style="gold1")
+
+
+print(table)
+
+
+
 
 total_pokemon = 1025
 pokedex = load_pokemon()
@@ -54,46 +69,52 @@ while True:
     for dex_number, Pokemon  in pokedex.items():
         if user_input.lower() in Pokemon["Name"].lower():
             found = True
-            print ( f"{Pokemon["Name"].capitalize()} - #{Pokemon["Dex_number"]}")
-            if len(Pokemon["Typing"])!= 1:
-                print (f"{Pokemon["Typing"][0]}, {Pokemon["Typing"][1]}")
+            #print ( f"{Pokemon["Name"].capitalize()} - #{Pokemon["Dex_number"]}")
+            if len(Pokemon["Typing"])> 1:
+                color1 = Type_colors[Pokemon["Typing"][0]]
+                color2 =  Type_colors[Pokemon["Typing"][1]]
+                Typing_display = (f"[{color1}]{Pokemon["Typing"][0]}[/{color1}], [{color2}]{Pokemon["Typing"][1]}[/{color2}]")
             else:
-                print (f"{Pokemon["Typing"][0]}")
+                color1 = Type_colors[Pokemon["Typing"][0]]
+                Typing_display = (f"[{color1}]{Pokemon["Typing"][0]}[/{color1}]")
             if Pokemon["Owned"] == True:
-                print("Owned?: Yes")
+                Ownership = ("Owned?: Yes")
             else:
-                print("Owned?: No")
+                Ownership =("Owned?: No")
 
-            if Pokemon["Shiny"] == True:
-                print("Shiny?: Yes")
-            else:
-                print("Shiny?: No") 
+            #if Pokemon["Shiny"] == True:
+                #("Shiny?: Yes")
+            #else:
+                #("Shiny?: No") 
         
             print (f"stored location: {Pokemon["stored"]}")
+            table.add_row(f"#{Pokemon["Dex_number"]}",f"{Pokemon["Name"].capitalize()}", f"{Typing_display}", 
+                 f"{Ownership}")
 
             print("...")
 
-            print()
-            Stored_update = input("Do you Want to update This Pokemon y/n?: ")
-            if Stored_update.lower() == "y":
-                if Pokemon["Owned"] == False:
-                    for key, value in Games.items():
-                        print (f"{key}: {value}")
-                    Location_update = input(" what game?:")
-                    Pokemon["stored"] = Games[Location_update]
-                    Pokemon["Owned"] = True
-                    Shiny_update = input("is it shiny y/n?:").lower()
-                    Pokemon["Shiny"] = OwnedYN[Shiny_update]
-                    save_pokemon(pokedex)
-                elif Pokemon["Owned"] == True:
-                    Ownership_removal = input("Do you want to unown your pokemon y/n?: ")
-                    if Ownership_removal.lower() == "y":
-                        Pokemon["Owned"] = False
-                        Pokemon["Shiny"] = False
-                        Pokemon["stored"] = ""
-                        save_pokemon(pokedex)            
+           # print()
+            #Stored_update = input("Do you Want to update This Pokemon y/n?: ")
+            #if Stored_update.lower() == "y":
+             #   if Pokemon["Owned"] == False:
+              #      for key, value in Games.items():
+               #         print (f"{key}: {value}")
+                #    Location_update = input(" what game?:")
+                 #  Pokemon["stored"] = Games[Location_update]
+                  #  Pokemon["Owned"] = True
+                 #   Shiny_update = input("is it shiny y/n?:").lower()
+                   # Pokemon["Shiny"] = OwnedYN[Shiny_update]
+                    #save_pokemon(pokedex)
+                #elif Pokemon["Owned"] == True:
+                 #   Ownership_removal = input("Do you want to unown your pokemon y/n?: ")
+                  #  if Ownership_removal.lower() == "y":
+                   #     Pokemon["Owned"] = False
+                    #    Pokemon["Shiny"] = False
+                     ##  save_pokemon(pokedex)            
 
     if found == False:
         print(f"Pokemon not found: {user_input}?") 
         
-    
+    print(table)
+
+
